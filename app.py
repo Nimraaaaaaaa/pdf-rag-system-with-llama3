@@ -11,18 +11,18 @@ from streamlit_chat import message
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.llms.base import LLM
-from pydantic import BaseModel, Field  # ✅ BaseModel import already hai
-from dotenv import load_dotenv  # ✅ import dotenv
+from pydantic import BaseModel, Field  
+from dotenv import load_dotenv  
 
-# ✅ Load environment variables
+#  Load environment variables
 load_dotenv()
-groq_api_key = os.getenv("GROQ_API_KEY")  # 🔐 fetch Groq API key
+groq_api_key = os.getenv("GROQ_API_KEY")  #  fetch Groq API key
 
-# ✅ Modified ChatGroq class
+#  Modified ChatGroq class
 class ChatGroq(LLM, BaseModel):
     model_name: str = Field(default="llama3-8b-8192")
     temperature: float = Field(default=0.7)
-    callbacks: None = None  # ✅ Field define krdiya
+    callbacks: None = None  
 
     def _call(self, prompt, stop=None):
         import requests
@@ -60,14 +60,14 @@ class ChatGroq(LLM, BaseModel):
     def _llm_type(self):
         return "groq"
 
-# ❗❗❗ Baaki sab tumhara code same ka same chalega — main(), get_files_text(), get_pdf_text(), sab kuch same. ❗❗❗
+
 
 
 
 
 def main():
     if groq_api_key:
-        pass  # ✅ Token loaded successfully
+        pass  
     else:
         st.error("❌ Groq API key not found. Please check your .env file.")
         return
